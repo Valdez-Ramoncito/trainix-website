@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="TRAINIX is an AI-powered call center training simulator for Non-Voice and Voice practice, live coaching, and structured progress tracking."
+    />
+    <title>TRAINIX - Call Center Training Simulator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="#top">
+          <img src="assets/images/logo.png" alt="TRAINIX" class="logo-img" />
+        </a>
+        <nav class="nav">
+          <a href="#features">Features</a>
+          <a href="#product">Trainee</a>
+          <a href="#trainer">Trainer</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#roles">Roles</a>
+          <a href="#download" class="nav-cta">Download</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">Call center training, simulated</p>
+            <h1>Turn practice into confidence.</h1>
+            <p class="lead">
+              TRAINIX is a desktop training simulator for Non-Voice and Voice
+              call center practice. Trainees handle AI customers, use real agent
+              tools, and get scored feedback. Trainers run live coaching rooms
+              and track progress.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#download"
+                >Download for Windows</a
+              >
+              <a class="btn btn-ghost" href="#product">See the product</a>
+            </div>
+            <p class="hero-note">
+              Desktop-first Flutter app. Windows installer. Account required
+              only after install.
+            </p>
+          </div>
+          <div class="hero-visual reveal reveal-delay-1">
+            <div class="media-frame media-frame-hero">
+              <img
+                src="assets/images/hero-app.png"
+                alt="TRAINIX login screen"
+                class="hero-media"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section features" id="features">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Built for real call center practice</h2>
+            <p>
+              From first login to simulation and live coaching, the path mirrors
+              how agents actually work.
+            </p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card reveal">
+              <h3>Mini Training</h3>
+              <p>
+                Knowledge path and scenario practice so trainees build skills
+                before full simulations.
+              </p>
+            </article>
+            <article class="feature-card reveal reveal-delay-1">
+              <h3>Non-Voice simulation</h3>
+              <p>
+                Chat-style customer handling with tools, account lookup, sector
+                guides, and after-call work.
+              </p>
+            </article>
+            <article class="feature-card reveal reveal-delay-2">
+              <h3>Voice simulation</h3>
+              <p>
+                Spoken practice with scripted customer lines, STT for the agent,
+                and the same tool workflow.
+              </p>
+            </article>
+            <article class="feature-card reveal">
+              <h3>Live Trainer rooms</h3>
+              <p>
+                Trainers create rooms, invite trainees, and coach in real time
+                with shared session tools.
+              </p>
+            </article>
+            <article class="feature-card reveal reveal-delay-1">
+              <h3>Log Monitoring</h3>
+              <p>
+                Trainers review ended sessions, live rooms, and trainee activity
+                from one monitoring hub.
+              </p>
+            </article>
+            <article class="feature-card reveal reveal-delay-2">
+              <h3>Scoring and progress</h3>
+              <p>
+                Session reports, competency breakdowns, and a progress dashboard
+                to spot strengths and gaps.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section media-section" id="product">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Trainee side</h2>
+            <p>
+              Learn, practice, and get scored feedback before joining a live
+              room.
+            </p>
+          </div>
+          <div class="gallery gallery-4">
+            <figure class="gallery-item reveal">
+              <button
+                type="button"
+                class="gallery-open"
+                data-full="assets/images/gallery-home.png"
+                data-caption="Trainee home with Profile, Trainer Session, and Simulation"
+                aria-label="View trainee home larger"
+              >
+                <div class="media-frame media-frame-sm">
+                  <img
+                    src="assets/images/gallery-home.png"
+                    alt="Trainee home screen"
+                  />
+                </div>
+              </button>
+              <figcaption>
+                Trainee home with Profile, Trainer Session, and Simulation
+              </figcaption>
+            </figure>
+            <figure class="gallery-item reveal reveal-delay-1">
+              <button
+                type="button"
+                class="gallery-open"
+                data-full="assets/images/gallery-mini.png"
+                data-caption="Mini Training knowledge path with unlocks"
+                aria-label="View Mini Training larger"
+              >
+                <div class="media-frame media-frame-sm">
+                  <img
+                    src="assets/images/gallery-mini.png"
+                    alt="Mini Training Knowledge Path"
+                  />
+                </div>
+              </button>
+              <figcaption>Mini Training knowledge path with unlocks</figcaption>
+            </figure>
+            <figure class="gallery-item reveal reveal-delay-2">
+              <button
+                type="button"
+                class="gallery-open"
+                data-full="assets/images/gallery-simulation.png"
+                data-caption="Non-Voice session with Script Guide and tools"
+                aria-label="View Non-Voice session larger"
+              >
+                <div class="media-frame media-frame-sm">
+                  <img
+                    src="assets/images/gallery-simulation.png"
+                    alt="Non-Voice simulation session"
+                  />
+                </div>
+              </button>
+              <figcaption>
+                Non-Voice session with Script Guide and tools
+              </figcaption>
+            </figure>
+            <figure class="gallery-item reveal reveal-delay-3">
+              <button
+                type="button"
+                class="gallery-open"
+                data-full="assets/images/gallery-voice.png"
+                data-caption="Voice session with mic control and coaching rail"
+                aria-label="View Voice session larger"
+              >
+                <div class="media-frame media-frame-sm">
+                  <img
+                    src="assets/images/gallery-voice.png"
+                    alt="Voice simulation session"
+                  />
+                </div>
+              </button>
+              <figcaption>
+                Voice session with mic control and coaching rail
+              </figcaption>
+            </figure>
+            <figure class="gallery-item reveal gallery-item-span">
+              <button
+                type="button"
+                class="gallery-open"
+                data-full="assets/images/gallery-report.png"
+                data-caption="Session performance report and competency scores"
+                aria-label="View session report larger"
+              >
+                <div class="media-frame media-frame-sm">
+                  <img
+                    src="assets/images/gallery-report.png"
+                    alt="Session performance report"
+                  />
+                </div>
+              </button>
+              <figcaption>
+                Session performance report and competency scores
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section media-section trainer-section" id="trainer">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Trainer side</h2>
+            <p>
+              Create rooms, coach in real time, and review trainee activity from
+              one workspace.
+            </p>
+          </div>
+          <div class="gallery gallery-4">
+            <figure class="gallery-item reveal reveal-delay-1">
+              <button
+                type="button"
+                class="gallery-open"
+                data-full="assets/images/gallery-trainer-home.png"
+                data-caption="Trainer home with Profile, Trainee Session, and Log Monitoring"
+                aria-label="View trainer home larger"
+              >
+                <div class="media-frame media-frame-sm">
+                  <img
+                    src="assets/images/gallery-trainer-home.png"
+                    alt="Trainer home screen"
+                  />
+                </div>
+              </button>
+              <figcaption>
+                Trainer home with Profile, Trainee Session, and Log Monitoring
+              </figcaption>
+            </figure>
+            <figure class="gallery-item reveal reveal-delay-2">
+              <button
+                type="button"
+                class="gallery-open"
+                data-full="assets/images/gallery-create-room.png"
+                data-caption="Create room with code, visibility, session type, and schedule"
+                aria-label="View create room larger"
+              >
+                <div class="media-frame media-frame-sm">
+                  <img
+                    src="assets/images/gallery-create-room.png"
+                    alt="Create room dialog"
+                  />
+                </div>
+              </button>
+              <figcaption>
+                Create room with code, visibility, session type, and schedule
+              </figcaption>
+            </figure>
+            <figure class="gallery-item reveal reveal-delay-3">
+              <button
+                type="button"
+                class="gallery-open"
+                data-full="assets/images/gallery-live.png"
+                data-caption="Live Training Room with video and session tools"
+                aria-label="View live room larger"
+              >
+                <div class="media-frame media-frame-sm">
+                  <img
+                    src="assets/images/gallery-live.png"
+                    alt="Live Training Room"
+                  />
+                </div>
+              </button>
+              <figcaption>
+                Live Training Room with video and session tools
+              </figcaption>
+            </figure>
+            <figure class="gallery-item reveal">
+              <button
+                type="button"
+                class="gallery-open"
+                data-full="assets/images/gallery-logs.png"
+                data-caption="Log Monitoring for sessions, activity, and trainee logs"
+                aria-label="View log monitoring larger"
+              >
+                <div class="media-frame media-frame-sm">
+                  <img
+                    src="assets/images/gallery-logs.png"
+                    alt="Log Monitoring"
+                  />
+                </div>
+              </button>
+              <figcaption>
+                Log Monitoring for sessions, activity, and trainee logs
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section how" id="how-it-works">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>How it works</h2>
+            <p>A clear path from learning to practice to live coaching.</p>
+          </div>
+          <ol class="steps">
+            <li class="reveal">
+              <span class="step-num">1</span>
+              <div>
+                <h3>Complete Mini Training</h3>
+                <p>
+                  Lessons and scenario practice unlock the next stages with
+                  measurable progress.
+                </p>
+              </div>
+            </li>
+            <li class="reveal">
+              <span class="step-num">2</span>
+              <div>
+                <h3>Run Simulation sessions</h3>
+                <p>
+                  Handle customers in Non-Voice or Voice mode using the same
+                  tools an agent would use on the floor.
+                </p>
+              </div>
+            </li>
+            <li class="reveal">
+              <span class="step-num">3</span>
+              <div>
+                <h3>Review scores and notes</h3>
+                <p>
+                  Session reports and the progress dashboard highlight strengths
+                  and what to practice next.
+                </p>
+              </div>
+            </li>
+            <li class="reveal">
+              <span class="step-num">4</span>
+              <div>
+                <h3>Live coaching with a trainer</h3>
+                <p>
+                  Trainers create rooms and invite trainees. Both sides join the
+                  Live Training Room for guided practice and feedback.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section roles" id="roles">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Roles</h2>
+          </div>
+          <div class="role-grid">
+            <article class="role-card reveal">
+              <h3>Trainee</h3>
+              <p>
+                Follow the training path, practice Non-Voice and Voice
+                simulations, track unlocks, and join live rooms when invited.
+              </p>
+              <ul class="role-list">
+                <li>Mini Training and Scenario Practice</li>
+                <li>Simulation Training (Non-Voice and Voice)</li>
+                <li>Session reports and Progress Dashboard</li>
+                <li>Join Trainer rooms when invited</li>
+              </ul>
+            </article>
+            <article class="role-card reveal reveal-delay-1">
+              <h3>Trainer</h3>
+              <p>
+                Create and manage live rooms, invite trainees, coach in session,
+                and review activity from Log Monitoring.
+              </p>
+              <ul class="role-list">
+                <li>Trainee Session and Create Room</li>
+                <li>Live Training Room with session tools</li>
+                <li>Log Monitoring and activity overview</li>
+                <li>Invites and room visibility controls</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section download" id="download">
+        <div class="container download-inner reveal">
+          <div class="download-copy">
+            <h2>Download TRAINIX</h2>
+            <p>
+              Get the Windows desktop installer. After install, sign in with
+              your training account or use credentials provided by your program
+              admin.
+            </p>
+            <ul class="download-meta">
+              <li>Platform: Windows</li>
+              <li>Format: Installer (.exe)</li>
+              <li>Desktop-first training client</li>
+            </ul>
+          </div>
+          <div class="download-actions">
+            <a
+              class="btn btn-primary btn-lg"
+              href="downloads/TRAINIX Setup.exe"
+              download
+              id="download-btn"
+            >
+              Download for Windows
+            </a>
+            <p class="download-hint">
+              Place the installer at <code>downloads/TRAINIX Setup.exe</code> or
+              change the link target in <code>index.html</code>.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <img src="assets/images/logo.png" alt="TRAINIX" class="footer-logo" />
+          <p>AI-powered call center training simulator.</p>
+        </div>
+        <div class="footer-meta">
+          <p>
+            Capstone project · Pangasinan State University – Urdaneta City
+            Campus
+          </p>
+          <p class="footer-small">
+            Public landing page. Product access is account-based inside the app.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox" hidden>
+      <div class="lightbox-backdrop" data-close></div>
+      <div
+        class="lightbox-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Screenshot preview"
+      >
+        <button
+          type="button"
+          class="lightbox-close"
+          data-close
+          aria-label="Close"
+        >
+          Close
+        </button>
+        <img class="lightbox-image" id="lightbox-image" alt="" />
+        <p class="lightbox-caption" id="lightbox-caption"></p>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
