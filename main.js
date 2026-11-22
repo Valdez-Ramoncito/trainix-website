@@ -220,22 +220,35 @@
         track.appendChild(clone);
       });
 
-      var offset = 0;
-      var speed = wrap.getAttribute("data-marquee") === "trainer" ? 0.45 : 0.55;
-      var paused = false;
-      var lastTs = null;
-      var rafId = null;
-
-      function measureSetWidth() {
+      function measureAndStart() {
+        // Force layout
+        var setCount = originals.length;
         var cards = track.children;
-        if (cards.length < 2) return 1;
-        var half = Math.floor(cards.length / 2);
-        var first = cards[0].getBoundingClientRect();
-        var mid = cards[half].getBoundingClientRect();
-        return Math.max(1, mid.left - first.left);
-      }
+        if (cards.length < setCount + 1) return;
 
-      var setWidth = measureSetWidth();
+        // Measure one set width using offsetLeft of the first card of the second set
+        var firstOfSecond = cards[setCount];
+        var shiftPx = firstOfSecond.offsetLeft;
+        if (!shiftPx || shiftPx < 40) {
+          // Fallback: sum card widths + gaps
+          var gap = parseFloat(getComputedStyle(track).gap) || 20;
+          shiftPx = 0;
+          for (var i = 0; i < setCount; i++) {
+            shiftPx += cards[i].offsetWidth + gap;
+          }
+        }
+
+        wrap.style.setProperty("--marquee-shift", "-" + shiftPx + "px");
+
+        // Duration based on content width (steady visual speed)
+        var pxPerSec = wrap.getAttribute("data-marquee") === "trainer" ? 38 : 42;
+        var duration = Math.max(18, Math.round(shiftPx / pxPerSec));
+        wrap.style.setProperty("--marquee-duration", duration + "s");
+
+        if (!reduceMotion) {
+          track.classList.add("is-ready");
+        }
+      }
 
       function updateCenter() {
         var viewportRect = wrap.getBoundingClientRect();
@@ -254,7 +267,7 @@
             bestDist = dist;
             best = card;
           }
-          if (dist < rect.width * 1.15) {
+          if (dist < rect.width * 1.2) {
             near.push(card);
           }
         });
@@ -265,33 +278,17 @@
         if (best) best.classList.add("is-center");
       }
 
-      function tick(ts) {
-        if (lastTs == null) lastTs = ts;
-        var dt = Math.min(48, ts - lastTs);
-        lastTs = ts;
-
-        if (!paused && !reduceMotion) {
-          offset += (speed * dt) / 16;
-          if (offset >= setWidth) {
-            offset -= setWidth;
-          }
-          track.style.transform = "translate3d(" + -offset + "px, 0, 0)";
-        }
-
-        updateCenter();
-        rafId = window.requestAnimationFrame(tick);
-      }
-
+      // Pause on hover / touch
       wrap.addEventListener("mouseenter", function () {
-        paused = true;
+        wrap.classList.add("is-paused");
       });
       wrap.addEventListener("mouseleave", function () {
-        paused = false;
+        wrap.classList.remove("is-paused");
       });
       wrap.addEventListener(
         "touchstart",
         function () {
-          paused = true;
+          wrap.classList.add("is-paused");
         },
         { passive: true }
       );
@@ -299,28 +296,68 @@
         "touchend",
         function () {
           setTimeout(function () {
-            paused = false;
-          }, 1800);
+            wrap.classList.remove("is-paused");
+          }, 1600);
         },
         { passive: true }
       );
+
+      // Wait for images so widths are real
+      var imgs = track.querySelectorAll("img");
+      var pending = 0;
+      function maybeStart() {
+        if (pending <= 0) {
+          // Double rAF so layout settles after reveal / fonts
+          window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(function () {
+              measureAndStart();
+              updateCenter();
+            });
+          });
+        }
+      }
+
+      imgs.forEach(function (img) {
+        if (img.complete) return;
+        pending += 1;
+        img.addEventListener(
+          "load",
+          function () {
+            pending -= 1;
+            maybeStart();
+          },
+          { once: true }
+        );
+        img.addEventListener(
+          "error",
+          function () {
+            pending -= 1;
+            maybeStart();
+          },
+          { once: true }
+        );
+      });
+      maybeStart();
+
+      // Continuous center highlighting
+      var rafId = null;
+      function loop() {
+        updateCenter();
+        rafId = window.requestAnimationFrame(loop);
+      }
+      rafId = window.requestAnimationFrame(loop);
 
       var resizeTimer = null;
       window.addEventListener("resize", function () {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function () {
-          setWidth = measureSetWidth();
-          if (offset >= setWidth) offset = 0;
-        }, 120);
+          track.classList.remove("is-ready");
+          // Force reflow then remeasure
+          void track.offsetWidth;
+          measureAndStart();
+          updateCenter();
+        }, 150);
       });
-
-      if (reduceMotion) {
-        track.style.transform = "translate3d(0, 0, 0)";
-        updateCenter();
-        return;
-      }
-
-      rafId = window.requestAnimationFrame(tick);
     });
   }
 
