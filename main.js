@@ -233,29 +233,43 @@
         }
         var centerX = viewportRect.left + viewportRect.width / 2;
         var cards = track.querySelectorAll(".marquee-card");
+
+        // Read phase: measure every card as currently rendered, with no
+        // class mutations in between. Interleaving classList.remove with
+        // getBoundingClientRect (the old approach) forces the browser to
+        // commit the "unscaled" style mid-frame, which restarted the pop
+        // transition every single animation frame — that was the heartbeat.
         var best = null;
         var bestDist = Infinity;
-        var near = [];
+        var measurements = [];
 
         for (var i = 0; i < cards.length; i++) {
           var card = cards[i];
-          card.classList.remove("is-center", "is-near");
           var rect = card.getBoundingClientRect();
           var cardCenter = rect.left + rect.width / 2;
           var dist = Math.abs(cardCenter - centerX);
+          measurements.push({ card: card, dist: dist, width: rect.width });
           if (dist < bestDist) {
             bestDist = dist;
             best = card;
           }
-          if (dist < rect.width * 1.25) {
-            near.push(card);
-          }
         }
 
-        for (var j = 0; j < near.length; j++) {
-          if (near[j] !== best) near[j].classList.add("is-near");
+        // Write phase: only touch classList where the desired state
+        // actually differs from what's already applied, so a card that's
+        // already centered (or already plain) is left completely alone.
+        for (var j = 0; j < measurements.length; j++) {
+          var m = measurements[j];
+          var wantsCenter = m.card === best;
+          var wantsNear = !wantsCenter && m.dist < m.width * 1.25;
+
+          if (wantsCenter !== m.card.classList.contains("is-center")) {
+            m.card.classList.toggle("is-center", wantsCenter);
+          }
+          if (wantsNear !== m.card.classList.contains("is-near")) {
+            m.card.classList.toggle("is-near", wantsNear);
+          }
         }
-        if (best) best.classList.add("is-center");
       }
 
       wrap.addEventListener("mouseenter", function () {
