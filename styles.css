@@ -1078,10 +1078,9 @@ body.lightbox-open {
     animation: none;
   }
 
-  /* Stop the continuous scroll for reduced-motion users, but keep the
-     discrete center-card pop (scale/opacity/filter) working — it's a
-     state change, not ongoing motion, so it doesn't need to be disabled. */
-  .marquee-track {
-    animation: none !important;
-  }
+  /* Intentionally NOT disabling .marquee-track's animation here: this
+     carousel is decorative showcase content, and it should keep scrolling
+     even for visitors with "reduce motion" enabled at the OS level. If you
+     ever want to respect that preference instead, re-add:
+     .marquee-track { animation: none !important; } */
 }

@@ -285,7 +285,17 @@
         updateCenter();
         window.requestAnimationFrame(loop);
       }
-      window.requestAnimationFrame(loop);
+
+      // Wait for images to finish loading before tracking the centered
+      // card — starting right away (before layout has settled) caused the
+      // nearest-card check to flicker between cards for a moment.
+      if (document.readyState === "complete") {
+        window.requestAnimationFrame(loop);
+      } else {
+        window.addEventListener("load", function () {
+          window.requestAnimationFrame(loop);
+        });
+      }
     });
   }
 
