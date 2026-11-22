@@ -7,7 +7,7 @@
       name="description"
       content="TRAINIX is an AI-powered call center training simulator for Non-Voice and Voice practice, live coaching, and structured progress tracking."
     />
-    <title>TRAINIX - Call Center Training Simulator</title>
+    <title>TRAINIX — Call Center Training Simulator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" type="image/png" href="assets/images/webicon.png" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
   </head>
   <body>
     <header class="site-header">
@@ -23,7 +23,7 @@
         <a class="logo" href="#top">
           <img src="assets/images/logo.png" alt="TRAINIX" class="logo-img" />
         </a>
-        <nav class="nav">
+        <nav class="nav" id="main-nav" aria-label="Primary">
           <a href="#features">Features</a>
           <a href="#product">Trainee</a>
           <a href="#trainer">Trainer</a>
@@ -31,6 +31,18 @@
           <a href="#roles">Roles</a>
           <a href="#download" class="nav-cta">Download</a>
         </nav>
+        <button
+          type="button"
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="main-nav"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </header>
 
@@ -53,7 +65,8 @@
               <a class="btn btn-ghost" href="#product">See the product</a>
             </div>
             <p class="hero-note">
-              Windows installer. Account required only after install.
+              Desktop-first Flutter app. Windows installer. Account required
+              only after install.
             </p>
           </div>
           <div class="hero-visual reveal reveal-delay-1">
@@ -133,100 +146,184 @@
               room.
             </p>
           </div>
-          <div class="gallery gallery-4">
-            <figure class="gallery-item reveal">
-              <button
-                type="button"
-                class="gallery-open"
-                data-full="assets/images/gallery-home.png"
-                data-caption="Trainee home with Profile, Trainer Session, and Simulation"
-                aria-label="View trainee home larger"
-              >
-                <div class="media-frame media-frame-sm">
-                  <img
-                    src="assets/images/gallery-home.png"
-                    alt="Trainee home screen"
-                  />
-                </div>
-              </button>
-              <figcaption>
-                Trainee home with Profile, Trainer Session, and Simulation
-              </figcaption>
-            </figure>
-            <figure class="gallery-item reveal reveal-delay-1">
-              <button
-                type="button"
-                class="gallery-open"
-                data-full="assets/images/gallery-mini.png"
-                data-caption="Mini Training knowledge path with unlocks"
-                aria-label="View Mini Training larger"
-              >
-                <div class="media-frame media-frame-sm">
-                  <img
-                    src="assets/images/gallery-mini.png"
-                    alt="Mini Training Knowledge Path"
-                  />
-                </div>
-              </button>
-              <figcaption>Mini Training knowledge path with unlocks</figcaption>
-            </figure>
-            <figure class="gallery-item reveal reveal-delay-2">
-              <button
-                type="button"
-                class="gallery-open"
-                data-full="assets/images/gallery-simulation.png"
-                data-caption="Non-Voice session with Script Guide and tools"
-                aria-label="View Non-Voice session larger"
-              >
-                <div class="media-frame media-frame-sm">
-                  <img
-                    src="assets/images/gallery-simulation.png"
-                    alt="Non-Voice simulation session"
-                  />
-                </div>
-              </button>
-              <figcaption>
-                Non-Voice session with Script Guide and tools
-              </figcaption>
-            </figure>
-            <figure class="gallery-item reveal reveal-delay-3">
-              <button
-                type="button"
-                class="gallery-open"
-                data-full="assets/images/gallery-voice.png"
-                data-caption="Voice session with mic control and coaching rail"
-                aria-label="View Voice session larger"
-              >
-                <div class="media-frame media-frame-sm">
-                  <img
-                    src="assets/images/gallery-voice.png"
-                    alt="Voice simulation session"
-                  />
-                </div>
-              </button>
-              <figcaption>
-                Voice session with mic control and coaching rail
-              </figcaption>
-            </figure>
-            <figure class="gallery-item reveal gallery-item-span">
-              <button
-                type="button"
-                class="gallery-open"
-                data-full="assets/images/gallery-report.png"
-                data-caption="Session performance report and competency scores"
-                aria-label="View session report larger"
-              >
-                <div class="media-frame media-frame-sm">
-                  <img
-                    src="assets/images/gallery-report.png"
-                    alt="Session performance report"
-                  />
-                </div>
-              </button>
-              <figcaption>
-                Session performance report and competency scores
-              </figcaption>
-            </figure>
+        </div>
+        <div class="marquee-wrap reveal" data-marquee="trainee">
+          <div class="marquee-fade marquee-fade-left" aria-hidden="true"></div>
+          <div class="marquee-fade marquee-fade-right" aria-hidden="true"></div>
+          <div class="marquee-viewport">
+            <div class="marquee-track">
+              <!-- Trainee cards (duplicated in JS for seamless loop) -->
+              <figure class="marquee-card" data-caption="Trainee home">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-home.png"
+                  data-caption="Trainee home — Simulation Training, Mini Training, Progress Dashboard"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-home.png"
+                      alt="Trainee home screen"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Trainee home</figcaption>
+              </figure>
+              <figure class="marquee-card" data-caption="Profile">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-profile.png"
+                  data-caption="Profile — name, email, preferences, and bio"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-profile.png"
+                      alt="Profile screen"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Profile</figcaption>
+              </figure>
+              <figure class="marquee-card" data-caption="Knowledge Path">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-mini.png"
+                  data-caption="Mini Training Knowledge Path — lessons and category finals"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-mini.png"
+                      alt="Mini Training Knowledge Path"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Knowledge Path</figcaption>
+              </figure>
+              <figure class="marquee-card" data-caption="Scenario Practice">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-scenarios.png"
+                  data-caption="Scenario Practice — Non-Voice and Voice scenarios"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-scenarios.png"
+                      alt="Scenario Practice"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Scenario Practice</figcaption>
+              </figure>
+              <figure class="marquee-card" data-caption="Simulation Lobby">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-lobby.png"
+                  data-caption="Simulation Training lobby — sector, quota, and guidance"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-lobby.png"
+                      alt="Simulation Training lobby"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Simulation Lobby</figcaption>
+              </figure>
+              <figure class="marquee-card" data-caption="Non-Voice Session">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-simulation.png"
+                  data-caption="Non-Voice session — Script Guide, tools, and notepad"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-simulation.png"
+                      alt="Non-Voice simulation session"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Non-Voice Session</figcaption>
+              </figure>
+              <figure class="marquee-card" data-caption="Voice Session">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-voice.png"
+                  data-caption="Voice session — mic control, hold, and coaching rail"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-voice.png"
+                      alt="Voice simulation session"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Voice Session</figcaption>
+              </figure>
+              <figure class="marquee-card" data-caption="Session Report">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-report.png"
+                  data-caption="Session performance report and competency scores"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-report.png"
+                      alt="Session performance report"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Session Report</figcaption>
+              </figure>
+              <figure class="marquee-card" data-caption="Progress Dashboard">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-progress.png"
+                  data-caption="Progress Dashboard — averages, trends, and skill bands"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-progress.png"
+                      alt="Progress Dashboard"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Progress Dashboard</figcaption>
+              </figure>
+              <figure class="marquee-card" data-caption="Settings">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-settings.png"
+                  data-caption="Settings — training aids, notifications, theme"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-settings.png"
+                      alt="Settings screen"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Settings</figcaption>
+              </figure>
+            </div>
           </div>
         </div>
       </section>
@@ -240,83 +337,98 @@
               one workspace.
             </p>
           </div>
-          <div class="gallery gallery-4">
-            <figure class="gallery-item reveal reveal-delay-1">
-              <button
-                type="button"
-                class="gallery-open"
-                data-full="assets/images/gallery-trainer-home.png"
-                data-caption="Trainer home with Profile, Trainee Session, and Log Monitoring"
-                aria-label="View trainer home larger"
-              >
-                <div class="media-frame media-frame-sm">
-                  <img
-                    src="assets/images/gallery-trainer-home.png"
-                    alt="Trainer home screen"
-                  />
-                </div>
-              </button>
-              <figcaption>
-                Trainer home with Profile, Trainee Session, and Log Monitoring
-              </figcaption>
-            </figure>
-            <figure class="gallery-item reveal reveal-delay-2">
-              <button
-                type="button"
-                class="gallery-open"
-                data-full="assets/images/gallery-create-room.png"
-                data-caption="Create room with code, visibility, session type, and schedule"
-                aria-label="View create room larger"
-              >
-                <div class="media-frame media-frame-sm">
-                  <img
-                    src="assets/images/gallery-create-room.png"
-                    alt="Create room dialog"
-                  />
-                </div>
-              </button>
-              <figcaption>
-                Create room with code, visibility, session type, and schedule
-              </figcaption>
-            </figure>
-            <figure class="gallery-item reveal reveal-delay-3">
-              <button
-                type="button"
-                class="gallery-open"
-                data-full="assets/images/gallery-live.png"
-                data-caption="Live Training Room with video and session tools"
-                aria-label="View live room larger"
-              >
-                <div class="media-frame media-frame-sm">
-                  <img
-                    src="assets/images/gallery-live.png"
-                    alt="Live Training Room"
-                  />
-                </div>
-              </button>
-              <figcaption>
-                Live Training Room with video and session tools
-              </figcaption>
-            </figure>
-            <figure class="gallery-item reveal">
-              <button
-                type="button"
-                class="gallery-open"
-                data-full="assets/images/gallery-logs.png"
-                data-caption="Log Monitoring for sessions, activity, and trainee logs"
-                aria-label="View log monitoring larger"
-              >
-                <div class="media-frame media-frame-sm">
-                  <img
-                    src="assets/images/gallery-logs.png"
-                    alt="Log Monitoring"
-                  />
-                </div>
-              </button>
-              <figcaption>
-                Log Monitoring for sessions, activity, and trainee logs
-              </figcaption>
-            </figure>
+        </div>
+        <div class="marquee-wrap reveal" data-marquee="trainer">
+          <div class="marquee-fade marquee-fade-left" aria-hidden="true"></div>
+          <div class="marquee-fade marquee-fade-right" aria-hidden="true"></div>
+          <div class="marquee-viewport">
+            <div class="marquee-track">
+              <figure class="marquee-card" data-caption="Trainer home">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-trainer-home.png"
+                  data-caption="Trainer home — Profile, Trainee Session, Log Monitoring"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-trainer-home.png"
+                      alt="Trainer home screen"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Trainer home</figcaption>
+              </figure>
+              <figure class="marquee-card" data-caption="Create Room">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-create-room.png"
+                  data-caption="Create room — code, visibility, session type, schedule"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-create-room.png"
+                      alt="Create room dialog"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Create Room</figcaption>
+              </figure>
+              <figure class="marquee-card" data-caption="Live Training Room">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-live.png"
+                  data-caption="Live Training Room — video and session tools"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-live.png"
+                      alt="Live Training Room"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Live Training Room</figcaption>
+              </figure>
+              <figure class="marquee-card" data-caption="Log Monitoring">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-logs.png"
+                  data-caption="Log Monitoring — sessions, activity, and trainee logs"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-logs.png"
+                      alt="Log Monitoring"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Log Monitoring</figcaption>
+              </figure>
+              <figure class="marquee-card" data-caption="Admin">
+                <button
+                  type="button"
+                  class="gallery-open"
+                  data-full="assets/images/gallery-admin.png"
+                  data-caption="Admin — accounts, roles, and management"
+                >
+                  <div class="media-frame media-frame-sm">
+                    <img
+                      src="assets/images/gallery-admin.png"
+                      alt="Admin screen"
+                      loading="lazy"
+                    />
+                  </div>
+                </button>
+                <figcaption>Admin</figcaption>
+              </figure>
+            </div>
           </div>
         </div>
       </section>
@@ -414,7 +526,8 @@
             <h2>Download TRAINIX</h2>
             <p>
               Get the Windows desktop installer. After install, sign in with
-              your account or use credentials provided by your program admin.
+              your training account or use credentials provided by your program
+              admin.
             </p>
             <ul class="download-meta">
               <li>Platform: Windows</li>
@@ -425,7 +538,7 @@
           <div class="download-actions">
             <a
               class="btn btn-primary btn-lg"
-              href="downloads/TRAINIX 1.0.5 Setup.exe"
+              href="downloads/TRAINIX 2.0.0 Setup.exe"
               download
               id="download-btn"
             >
@@ -440,15 +553,12 @@
       <div class="container footer-inner">
         <div class="footer-brand">
           <img src="assets/images/logo.png" alt="TRAINIX" class="footer-logo" />
-          <p>AI-powered call center training simulator.</p>
+          <p>Call center training simulator</p>
         </div>
         <div class="footer-meta">
-          <p>
-            Capstone project · Pangasinan State University – Urdaneta City
-            Campus
-          </p>
+          <p>Desktop-first. Windows installer.</p>
           <p class="footer-small">
-            Public landing page. Product access is account-based inside the app.
+            Practice Non-Voice and Voice. Coach live. Track progress.
           </p>
         </div>
       </div>

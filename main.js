@@ -26,6 +26,40 @@
     window.addEventListener("scroll", update, { passive: true });
   }
 
+  function setupMobileNav() {
+    var toggle = document.getElementById("nav-toggle");
+    var nav = document.getElementById("main-nav");
+    if (!toggle || !nav) return;
+
+    function close() {
+      document.body.classList.remove("nav-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open menu");
+    }
+
+    function open() {
+      document.body.classList.add("nav-open");
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.setAttribute("aria-label", "Close menu");
+    }
+
+    toggle.addEventListener("click", function () {
+      if (document.body.classList.contains("nav-open")) {
+        close();
+      } else {
+        open();
+      }
+    });
+
+    nav.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", close);
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 900) close();
+    });
+  }
+
   function easeInOutCubic(t) {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
@@ -120,10 +154,7 @@
     var lightbox = document.getElementById("lightbox");
     var image = document.getElementById("lightbox-image");
     var caption = document.getElementById("lightbox-caption");
-    if (!lightbox || !image || !caption) {
-      console.warn("TRAINIX lightbox markup missing");
-      return;
-    }
+    if (!lightbox || !image || !caption) return;
 
     var lastFocus = null;
 
@@ -171,10 +202,134 @@
     });
   }
 
+  function setupMarquees() {
+    var wraps = document.querySelectorAll(".marquee-wrap");
+    if (!wraps.length) return;
+
+    wraps.forEach(function (wrap) {
+      var track = wrap.querySelector(".marquee-track");
+      if (!track) return;
+
+      var originals = Array.prototype.slice.call(track.children);
+      if (!originals.length) return;
+
+      // Duplicate set for seamless loop
+      originals.forEach(function (card) {
+        var clone = card.cloneNode(true);
+        clone.setAttribute("aria-hidden", "true");
+        track.appendChild(clone);
+      });
+
+      var offset = 0;
+      var speed = wrap.getAttribute("data-marquee") === "trainer" ? 0.45 : 0.55;
+      var paused = false;
+      var lastTs = null;
+      var rafId = null;
+
+      function measureSetWidth() {
+        var cards = track.children;
+        if (cards.length < 2) return 1;
+        var half = Math.floor(cards.length / 2);
+        var first = cards[0].getBoundingClientRect();
+        var mid = cards[half].getBoundingClientRect();
+        return Math.max(1, mid.left - first.left);
+      }
+
+      var setWidth = measureSetWidth();
+
+      function updateCenter() {
+        var viewportRect = wrap.getBoundingClientRect();
+        var centerX = viewportRect.left + viewportRect.width / 2;
+        var cards = track.querySelectorAll(".marquee-card");
+        var best = null;
+        var bestDist = Infinity;
+        var near = [];
+
+        cards.forEach(function (card) {
+          card.classList.remove("is-center", "is-near");
+          var rect = card.getBoundingClientRect();
+          var cardCenter = rect.left + rect.width / 2;
+          var dist = Math.abs(cardCenter - centerX);
+          if (dist < bestDist) {
+            bestDist = dist;
+            best = card;
+          }
+          if (dist < rect.width * 1.15) {
+            near.push(card);
+          }
+        });
+
+        near.forEach(function (c) {
+          if (c !== best) c.classList.add("is-near");
+        });
+        if (best) best.classList.add("is-center");
+      }
+
+      function tick(ts) {
+        if (lastTs == null) lastTs = ts;
+        var dt = Math.min(48, ts - lastTs);
+        lastTs = ts;
+
+        if (!paused && !reduceMotion) {
+          offset += (speed * dt) / 16;
+          if (offset >= setWidth) {
+            offset -= setWidth;
+          }
+          track.style.transform = "translate3d(" + -offset + "px, 0, 0)";
+        }
+
+        updateCenter();
+        rafId = window.requestAnimationFrame(tick);
+      }
+
+      wrap.addEventListener("mouseenter", function () {
+        paused = true;
+      });
+      wrap.addEventListener("mouseleave", function () {
+        paused = false;
+      });
+      wrap.addEventListener(
+        "touchstart",
+        function () {
+          paused = true;
+        },
+        { passive: true }
+      );
+      wrap.addEventListener(
+        "touchend",
+        function () {
+          setTimeout(function () {
+            paused = false;
+          }, 1800);
+        },
+        { passive: true }
+      );
+
+      var resizeTimer = null;
+      window.addEventListener("resize", function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          setWidth = measureSetWidth();
+          if (offset >= setWidth) offset = 0;
+        }, 120);
+      });
+
+      if (reduceMotion) {
+        track.style.transform = "translate3d(0, 0, 0)";
+        updateCenter();
+        return;
+      }
+
+      rafId = window.requestAnimationFrame(tick);
+    });
+  }
+
   onReady(function () {
     setupHeader();
+    setupMobileNav();
     setupSmoothAnchors();
     setupReveals();
     setupLightbox();
+    setupMarquees();
   });
 })();
