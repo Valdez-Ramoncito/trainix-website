@@ -960,6 +960,13 @@ body.lightbox-open {
   .marquee-fade {
     width: 40px;
   }
+
+  /* min-height was fighting the aspect-ratio at narrow widths, forcing
+     the frame taller than 16:9/16:10 and over-cropping the screenshots */
+  .media-frame-hero,
+  .media-frame-sm {
+    min-height: 0;
+  }
 }
 
 @media (max-width: 640px) {
@@ -970,6 +977,23 @@ body.lightbox-open {
 
   .hero {
     padding-top: 3rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.55rem, 7vw, 2rem);
+  }
+
+  .lead {
+    font-size: 0.95rem;
+  }
+
+  .section-head h2 {
+    font-size: clamp(1.25rem, 5vw, 1.6rem);
+  }
+
+  .section-head p,
+  .feature-card p {
+    font-size: 0.9rem;
   }
 
   :root {
@@ -983,6 +1007,19 @@ body.lightbox-open {
 
   .marquee-card.is-center {
     transform: scale(1.08);
+  }
+
+  /* Was a single nowrap line with ellipsis, which chopped mid-word on the
+     narrower mobile card width. Wrap onto up to 2 lines instead. */
+  .marquee-card figcaption {
+    font-size: 0.82rem;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: unset;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.3;
   }
 
   .section {
@@ -1041,14 +1078,9 @@ body.lightbox-open {
     animation: none;
   }
 
-  .marquee-card,
-  .marquee-card.is-center,
-  .marquee-card.is-near {
-    transform: none !important;
-    opacity: 1 !important;
-    filter: none !important;
-  }
-
+  /* Stop the continuous scroll for reduced-motion users, but keep the
+     discrete center-card pop (scale/opacity/filter) working — it's a
+     state change, not ongoing motion, so it doesn't need to be disabled. */
   .marquee-track {
     animation: none !important;
   }
