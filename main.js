@@ -213,52 +213,32 @@
       var originals = Array.prototype.slice.call(track.children);
       if (!originals.length) return;
 
-      // Duplicate set for seamless loop
+      // Duplicate once for seamless -50% CSS loop
       originals.forEach(function (card) {
         var clone = card.cloneNode(true);
         clone.setAttribute("aria-hidden", "true");
+        // Avoid duplicate button focus targets
+        var btn = clone.querySelector(".gallery-open");
+        if (btn) {
+          btn.setAttribute("tabindex", "-1");
+        }
         track.appendChild(clone);
       });
 
-      function measureAndStart() {
-        // Force layout
-        var setCount = originals.length;
-        var cards = track.children;
-        if (cards.length < setCount + 1) return;
-
-        // Measure one set width using offsetLeft of the first card of the second set
-        var firstOfSecond = cards[setCount];
-        var shiftPx = firstOfSecond.offsetLeft;
-        if (!shiftPx || shiftPx < 40) {
-          // Fallback: sum card widths + gaps
-          var gap = parseFloat(getComputedStyle(track).gap) || 20;
-          shiftPx = 0;
-          for (var i = 0; i < setCount; i++) {
-            shiftPx += cards[i].offsetWidth + gap;
-          }
-        }
-
-        wrap.style.setProperty("--marquee-shift", "-" + shiftPx + "px");
-
-        // Duration based on content width (steady visual speed)
-        var pxPerSec = wrap.getAttribute("data-marquee") === "trainer" ? 38 : 42;
-        var duration = Math.max(18, Math.round(shiftPx / pxPerSec));
-        wrap.style.setProperty("--marquee-duration", duration + "s");
-
-        if (!reduceMotion) {
-          track.classList.add("is-ready");
-        }
-      }
-
       function updateCenter() {
         var viewportRect = wrap.getBoundingClientRect();
+        // Skip work when off-screen
+        if (viewportRect.bottom < 0 || viewportRect.top > window.innerHeight) {
+          return;
+        }
         var centerX = viewportRect.left + viewportRect.width / 2;
         var cards = track.querySelectorAll(".marquee-card");
         var best = null;
         var bestDist = Infinity;
         var near = [];
 
-        cards.forEach(function (card) {
+        for (var i = 0; i < cards.length; i++) {
+          var card = cards[i];
           card.classList.remove("is-center", "is-near");
           var rect = card.getBoundingClientRect();
           var cardCenter = rect.left + rect.width / 2;
@@ -267,18 +247,17 @@
             bestDist = dist;
             best = card;
           }
-          if (dist < rect.width * 1.2) {
+          if (dist < rect.width * 1.25) {
             near.push(card);
           }
-        });
+        }
 
-        near.forEach(function (c) {
-          if (c !== best) c.classList.add("is-near");
-        });
+        for (var j = 0; j < near.length; j++) {
+          if (near[j] !== best) near[j].classList.add("is-near");
+        }
         if (best) best.classList.add("is-center");
       }
 
-      // Pause on hover / touch
       wrap.addEventListener("mouseenter", function () {
         wrap.classList.add("is-paused");
       });
@@ -297,67 +276,16 @@
         function () {
           setTimeout(function () {
             wrap.classList.remove("is-paused");
-          }, 1600);
+          }, 1500);
         },
         { passive: true }
       );
 
-      // Wait for images so widths are real
-      var imgs = track.querySelectorAll("img");
-      var pending = 0;
-      function maybeStart() {
-        if (pending <= 0) {
-          // Double rAF so layout settles after reveal / fonts
-          window.requestAnimationFrame(function () {
-            window.requestAnimationFrame(function () {
-              measureAndStart();
-              updateCenter();
-            });
-          });
-        }
-      }
-
-      imgs.forEach(function (img) {
-        if (img.complete) return;
-        pending += 1;
-        img.addEventListener(
-          "load",
-          function () {
-            pending -= 1;
-            maybeStart();
-          },
-          { once: true }
-        );
-        img.addEventListener(
-          "error",
-          function () {
-            pending -= 1;
-            maybeStart();
-          },
-          { once: true }
-        );
-      });
-      maybeStart();
-
-      // Continuous center highlighting
-      var rafId = null;
       function loop() {
         updateCenter();
-        rafId = window.requestAnimationFrame(loop);
+        window.requestAnimationFrame(loop);
       }
-      rafId = window.requestAnimationFrame(loop);
-
-      var resizeTimer = null;
-      window.addEventListener("resize", function () {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function () {
-          track.classList.remove("is-ready");
-          // Force reflow then remeasure
-          void track.offsetWidth;
-          measureAndStart();
-          updateCenter();
-        }, 150);
-      });
+      window.requestAnimationFrame(loop);
     });
   }
 
